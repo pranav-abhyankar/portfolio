@@ -234,15 +234,26 @@ export default function Hero() {
 
   useEffect(() => {
     if (prefersReducedMotion) return
-    const handle = (e: MouseEvent) => {
+    let rafId = 0
+    let pendingX = 0, pendingY = 0
+
+    const apply = () => {
+      rafId = 0
       if (!spotlightRef.current) return
-      const x = (e.clientX / window.innerWidth) * 100
-      const y = (e.clientY / window.innerHeight) * 100
       spotlightRef.current.style.background =
-        `radial-gradient(700px circle at ${x}% ${y}%, rgba(139,92,246,0.09), transparent 75%)`
+        `radial-gradient(700px circle at ${pendingX}% ${pendingY}%, rgba(139,92,246,0.09), transparent 75%)`
+    }
+
+    const handle = (e: MouseEvent) => {
+      pendingX = (e.clientX / window.innerWidth) * 100
+      pendingY = (e.clientY / window.innerHeight) * 100
+      if (!rafId) rafId = requestAnimationFrame(apply)
     }
     window.addEventListener('mousemove', handle, { passive: true })
-    return () => window.removeEventListener('mousemove', handle)
+    return () => {
+      window.removeEventListener('mousemove', handle)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
   }, [prefersReducedMotion])
 
   const scrambledFirst  = useScramble('PRANAV',    ready, 35, 100)

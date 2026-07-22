@@ -437,20 +437,23 @@ body {
 
 .cursor-dot {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: #8b5cf6;
   pointer-events: none;
   z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease, background-color 0.2s ease;
-  will-change: left, top;
+  transition: background-color 0.2s ease;
+  will-change: transform;
   mix-blend-mode: screen;
 }
 
 .cursor-halo {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -458,23 +461,23 @@ body {
   background: transparent;
   pointer-events: none;
   z-index: 99998;
-  transform: translate(-50%, -50%);
-  transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, transform 0.15s ease;
-  will-change: left, top;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+  will-change: transform;
 }
 
 .cursor-trail {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 4px;
   height: 4px;
   border-radius: 50%;
   background: radial-gradient(circle, #a78bfa, #6366f1);
   pointer-events: none;
   z-index: 99997;
-  transform: translate(-50%, -50%) scale(0);
   opacity: 0;
   transition: opacity 0.4s ease, transform 0.4s ease;
-  will-change: left, top, opacity, transform;
+  will-change: transform, opacity;
 }
 
 /* ─── Holographic Card ────────────────────────────────────────────── */

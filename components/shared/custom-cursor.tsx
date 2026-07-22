@@ -21,26 +21,32 @@ export default function CustomCursor() {
     let hx = -100, hy = -100
     let rafId = 0
     let isHovering = false
+    let isDown = false
+    let dotScale = 1
+    let haloScale = 1
     let trailIndex = 0
+    let lastTrailTime = 0
 
     const TRAIL_COUNT = 8
+    const TRAIL_INTERVAL_MS = 35
     const trails = trailsRef.current
 
     const onMove = (e: MouseEvent) => {
       mx = e.clientX
       my = e.clientY
 
-      // Spawn trail particle
+      const now = performance.now()
+      if (now - lastTrailTime < TRAIL_INTERVAL_MS) return
+      lastTrailTime = now
+
       const t = trails[trailIndex % TRAIL_COUNT]
       if (t) {
-        t.style.left = `${mx}px`
-        t.style.top = `${my}px`
+        t.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%) scale(1)`
         t.style.opacity = '0.6'
-        t.style.transform = 'translate(-50%, -50%) scale(1)'
-        setTimeout(() => {
+        requestAnimationFrame(() => {
           t.style.opacity = '0'
-          t.style.transform = 'translate(-50%, -50%) scale(0.1)'
-        }, 50)
+          t.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%) scale(0.1)`
+        })
       }
       trailIndex++
     }
@@ -53,11 +59,8 @@ export default function CustomCursor() {
         target.closest('[data-cursor="pointer"]')
       ) {
         isHovering = true
-        halo.style.width = '56px'
-        halo.style.height = '56px'
         halo.style.borderColor = 'rgba(139,92,246,0.8)'
         halo.style.backgroundColor = 'rgba(139,92,246,0.06)'
-        dot.style.transform = 'translate(-50%, -50%) scale(1.8)'
         dot.style.backgroundColor = '#a78bfa'
       }
     }
@@ -70,39 +73,32 @@ export default function CustomCursor() {
         target.closest('[data-cursor="pointer"]')
       ) {
         isHovering = false
-        halo.style.width = '32px'
-        halo.style.height = '32px'
         halo.style.borderColor = 'rgba(139,92,246,0.4)'
         halo.style.backgroundColor = 'transparent'
-        dot.style.transform = 'translate(-50%, -50%) scale(1)'
         dot.style.backgroundColor = '#8b5cf6'
       }
     }
 
-    const onMouseDown = () => {
-      halo.style.transform = `translate(-50%, -50%) scale(0.85)`
-      dot.style.transform = 'translate(-50%, -50%) scale(0.6)'
-    }
-
-    const onMouseUp = () => {
-      halo.style.transform = `translate(-50%, -50%) scale(${isHovering ? 1.15 : 1})`
-      dot.style.transform = `translate(-50%, -50%) scale(${isHovering ? 1.8 : 1})`
-    }
+    const onMouseDown = () => { isDown = true }
+    const onMouseUp = () => { isDown = false }
 
     const tick = () => {
-      // Lerp halo toward cursor
+      // Lerp halo position toward cursor
       hx += (mx - hx) * 0.12
       hy += (my - hy) * 0.12
 
-      dot.style.left = `${mx}px`
-      dot.style.top = `${my}px`
-      halo.style.left = `${hx}px`
-      halo.style.top = `${hy}px`
+      const dotTarget = isDown ? 0.6 : isHovering ? 1.8 : 1
+      const haloTarget = isDown ? 0.85 : isHovering ? 1.75 : 1
+      dotScale += (dotTarget - dotScale) * 0.25
+      haloScale += (haloTarget - haloScale) * 0.2
+
+      dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%) scale(${dotScale})`
+      halo.style.transform = `translate3d(${hx}px, ${hy}px, 0) translate(-50%, -50%) scale(${haloScale})`
 
       rafId = requestAnimationFrame(tick)
     }
 
-    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mousemove', onMove, { passive: true })
     document.addEventListener('mouseover', onEnter)
     document.addEventListener('mouseout', onLeave)
     document.addEventListener('mousedown', onMouseDown)

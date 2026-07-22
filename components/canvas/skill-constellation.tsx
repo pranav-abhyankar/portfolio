@@ -96,24 +96,26 @@ export default function SkillConstellation() {
     init()
 
     const MAX_CONN = 140
+    const MAX_CONN_SQ = MAX_CONN * MAX_CONN
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h)
 
       // Connections
+      ctx.strokeStyle = 'rgba(139,92,246,0.8)'
+      ctx.lineWidth = 0.5
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const a = nodes[i], b = nodes[j]
           const dx = a.x - b.x, dy = a.y - b.y
-          const d = Math.hypot(dx, dy)
-          if (d < MAX_CONN) {
+          const distSq = dx * dx + dy * dy
+          if (distSq < MAX_CONN_SQ) {
+            const d = Math.sqrt(distSq)
             const op = (1 - d / MAX_CONN) * 0.15
             ctx.globalAlpha = op
             ctx.beginPath()
             ctx.moveTo(a.x, a.y)
             ctx.lineTo(b.x, b.y)
-            ctx.strokeStyle = `rgba(139,92,246,0.8)`
-            ctx.lineWidth = 0.5
             ctx.stroke()
           }
         }
@@ -150,14 +152,11 @@ export default function SkillConstellation() {
         const pulseFactor = 0.85 + 0.15 * Math.sin(n.pulse)
         const rr = n.r * pulseFactor
 
-        // Glow
-        const grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, rr * 1.8)
-        grd.addColorStop(0, `${n.color}30`)
-        grd.addColorStop(1, 'transparent')
-        ctx.globalAlpha = 1
+        // Glow (flat low-alpha fill — avoids a gradient allocation every frame)
+        ctx.globalAlpha = 0.12 * pulseFactor
         ctx.beginPath()
         ctx.arc(n.x, n.y, rr * 1.8, 0, Math.PI * 2)
-        ctx.fillStyle = grd
+        ctx.fillStyle = n.color
         ctx.fill()
 
         // Circle
@@ -183,8 +182,22 @@ export default function SkillConstellation() {
       rafRef.current = requestAnimationFrame(draw)
     }
 
-    draw()
+    // Only animate while the constellation is actually visible on screen.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (!rafRef.current) draw()
+        } else {
+          cancelAnimationFrame(rafRef.current)
+          rafRef.current = 0
+        }
+      },
+      { threshold: 0 }
+    )
+    observer.observe(canvas)
+
     return () => {
+      observer.disconnect()
       cancelAnimationFrame(rafRef.current)
       window.removeEventListener('resize', onResize)
       canvas.removeEventListener('mousemove', onMouse)

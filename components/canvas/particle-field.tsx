@@ -91,22 +91,21 @@ export default function ParticleField() {
       }
 
       // Connections
+      const MAX_DIST_SQ = MAX_DIST * MAX_DIST
+      ctx.strokeStyle = 'rgba(139,92,246,0.5)'
+      ctx.lineWidth = 0.5
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const a = particles[i], b = particles[j]
           const dx = a.x - b.x, dy = a.y - b.y
-          const d = Math.hypot(dx, dy)
-          if (d < MAX_DIST) {
+          const distSq = dx * dx + dy * dy
+          if (distSq < MAX_DIST_SQ) {
+            const d = Math.sqrt(distSq)
             const op = (1 - d / MAX_DIST) * 0.2
-            const g = ctx.createLinearGradient(a.x, a.y, b.x, b.y)
-            g.addColorStop(0, a.color)
-            g.addColorStop(1, b.color)
             ctx.globalAlpha = op
             ctx.beginPath()
             ctx.moveTo(a.x, a.y)
             ctx.lineTo(b.x, b.y)
-            ctx.strokeStyle = g
-            ctx.lineWidth = 0.5
             ctx.stroke()
           }
         }
