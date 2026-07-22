@@ -60,7 +60,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className="font-mono font-bold text-sm text-white tracking-widest">PRANAV</span>
-                <span className="font-mono text-sm text-zinc-600">//</span>
+                <span className="font-mono text-sm text-zinc-600">{"//"}</span>
                 <span className="font-mono text-sm text-violet-400 tracking-widest">AI DEVELOPER</span>
               </div>
               <div className="h-px w-full bg-white/10" />
