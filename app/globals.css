@@ -425,61 +425,6 @@ body {
   justify-content: center;
 }
 
-/* ─── Custom Cursor ───────────────────────────────────────────────── */
-* { cursor: none !important; }
-
-/* Touch devices have no mouse cursor — restore normal cursor and hide
-   the custom cursor elements to prevent iOS Safari tap event issues. */
-@media (pointer: coarse) {
-  * { cursor: auto !important; }
-  .cursor-dot, .cursor-halo, .cursor-trail { display: none !important; }
-}
-
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #8b5cf6;
-  pointer-events: none;
-  z-index: 99999;
-  transition: background-color 0.2s ease;
-  will-change: transform;
-  mix-blend-mode: screen;
-}
-
-.cursor-halo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1px solid rgba(139,92,246,0.4);
-  background: transparent;
-  pointer-events: none;
-  z-index: 99998;
-  transition: border-color 0.25s ease, background-color 0.25s ease;
-  will-change: transform;
-}
-
-.cursor-trail {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #a78bfa, #6366f1);
-  pointer-events: none;
-  z-index: 99997;
-  opacity: 0;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  will-change: transform, opacity;
-}
-
 /* ─── Holographic Card ────────────────────────────────────────────── */
 .holo-card {
   position: relative;
@@ -652,8 +597,6 @@ body {
     transition-duration: 0.01ms !important;
   }
   .scroll-progress { transition: none; }
-  * { cursor: auto !important; }
-  .cursor-dot, .cursor-halo, .cursor-trail { display: none; }
 }
 
 /* ─── Responsive Typography ───────────────────────────────────────── */

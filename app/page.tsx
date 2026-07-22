@@ -6,7 +6,6 @@ import LoadingScreen from '@/components/shared/loading-screen'
 import ScrollProgress from '@/components/shared/scroll-progress'
 import CommandPalette from '@/components/shared/command-palette'
 import BackToTop from '@/components/shared/back-to-top'
-import CustomCursor from '@/components/shared/custom-cursor'
 import GrainOverlay from '@/components/shared/grain-overlay'
 import ParticleField from '@/components/canvas/particle-field'
 import MarqueeStrip from '@/components/shared/marquee-strip'
@@ -81,7 +80,6 @@ export default function Home() {
       {loaded && (
         <main className="relative overflow-x-hidden" style={{ background: 'var(--t-bg)', color: 'var(--t-text)' }}>
           {/* Global overlays — always on top */}
-          <CustomCursor />
           <GrainOverlay />
           <ParticleField />
 
