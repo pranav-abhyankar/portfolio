@@ -202,7 +202,7 @@ function CategoryCard({ group, featured = false, delay = 0 }: {
           <h3 className="font-display font-bold text-sm text-white leading-tight">
             {group.category}
           </h3>
-          <p className="text-[10px] font-mono text-zinc-700 mt-1 leading-snug">
+          <p className="text-[10px] font-mono mt-1 leading-snug" style={{ color: 'var(--t-text-muted)' }}>
             {group.description}
           </p>
         </div>
@@ -353,7 +353,7 @@ export default function Skills() {
               <h3 className="font-display font-bold text-sm text-white leading-tight">
                 Business Domain Expertise
               </h3>
-              <p className="text-[10px] font-mono text-zinc-700 mt-1 leading-snug">
+              <p className="text-[10px] font-mono mt-1 leading-snug" style={{ color: 'var(--t-text-muted)' }}>
                 Enterprise business processes across supply chain, finance, and operations
               </p>
             </div>
