@@ -169,7 +169,7 @@ export default function Contact() {
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
           custom={0.25}
-          className="flex items-center justify-center gap-2 text-zinc-700 text-xs font-mono mb-6"
+          className="flex items-center justify-center gap-2 text-white text-xs font-mono mb-6"
         >
           <MapPin className="w-3.5 h-3.5" />
           Bengaluru, Karnataka, India
@@ -182,7 +182,7 @@ export default function Contact() {
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
           custom={0.3}
-          className="text-center text-zinc-700 text-[11px] font-mono"
+          className="text-center text-white text-[11px] font-mono"
         >
           Designed &amp; built by{' '}
           <span className="text-violet-400">Pranav Pradeep Abhyankar</span>
