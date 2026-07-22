@@ -1,0 +1,55 @@
+import type { Experience } from '@/types'
+
+export const experience: Experience[] = [
+  {
+    role: 'Junior Data Scientist',
+    company: 'OFI Services',
+    location: 'Bengaluru, India',
+    period: 'Jan 2026 — Present',
+    current: true,
+    type: 'full-time',
+    description: 'Building and shipping production multi-agent AI systems for enterprise clients — from architecture through client handoff.',
+    bullets: [
+      'Delivered 10+ production AI agents for enterprise clients across O2C, P2P, treasury, and plant operations verticals',
+      'Architected multi-agent backends on LangChain + LangGraph with multi-provider LLM routing and fine-tuning across foundation models',
+      'Deployed and managed AI services on AWS, Azure, and GCP — integrating with FastAPI microservices and CI/CD pipelines',
+      'Replaced manual triage and reporting in 5+ business processes with agent-routed recommendations flowing into Celonis dashboards and SAP systems',
+      'Led requirements gathering, system design, implementation, and client handoff for every agent shipped',
+    ],
+    tech: ['Python', 'LangChain', 'LangGraph', 'FastAPI', 'AWS', 'Azure', 'GCP', 'SAP', 'Celonis', 'PostgreSQL'],
+    accentColor: '#8b5cf6',
+  },
+  {
+    role: 'Data Analytics Intern',
+    company: 'Quantlake',
+    location: 'Remote',
+    period: 'Jun 2025 — Jul 2025',
+    current: false,
+    type: 'internship',
+    description: 'Developed production-grade data processing workflows and business intelligence solutions.',
+    bullets: [
+      'Built Python-based data processing and transformation workflows, strengthening the engineering foundations that later evolved into developing production AI solutions',
+      'Developed SQL pipelines and interactive analytics dashboards to convert enterprise data into actionable business insights',
+      'Automated data extraction, validation, and reporting workflows using Python and SQL, improving efficiency and data quality',
+    ],
+    tech: ['Python', 'SQL', 'Numpy', 'Pandas', 'Data Analysis'],
+    accentColor: '#06b6d4',
+  },
+  {
+    role: 'AI Intern',
+    company: 'TechSaksham — Microsoft & SAP Joint CSR',
+    location: 'Remote',
+    period: 'Jan 2025 — Feb 2025',
+    current: false,
+    type: 'internship',
+    description: 'Developed and tuned an AI-powered healthcare chatbot through the complete ML lifecycle.',
+    bullets: [
+      'Built an AI healthcare chatbot achieving 90%+ accuracy in medically relevant query responses',
+      'Executed the full AI development lifecycle: data preparation, model training, framework integration, iterative tuning',
+      'Improved chatbot response generation speed by 40% through model optimization and prompt engineering',
+      'Collaborated with industry specialists to deliver a 15% improvement in contextual response accuracy',
+    ],
+    tech: ['Python', 'Machine Learning', 'NLP', 'Chatbot Development', 'Prompt Engineering'],
+    accentColor: '#f59e0b',
+  },
+]
