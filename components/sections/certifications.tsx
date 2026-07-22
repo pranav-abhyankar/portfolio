@@ -79,41 +79,43 @@ function CredentialCard({ cert, delay, inView }: {
 
   const inner = (
     <>
-      {/* Badge */}
-      <div
-        className="relative w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-105"
-        style={{
-          background: `linear-gradient(140deg, ${cert.color}ee 0%, ${cert.color}88 100%)`,
-          boxShadow: `0 4px 14px ${cert.color}40, inset 0 1px 0 rgba(255,255,255,0.25)`,
-        }}
-      >
-        <div className="absolute top-1 left-1.5 w-4 h-2 rounded-full opacity-35"
-          style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.9), transparent)' }} />
-        <span className="text-white text-[11px] font-black font-mono tracking-tight z-10 relative">
-          {cert.shortCode.length > 3 ? cert.shortCode.slice(0, 3) : cert.shortCode}
-        </span>
+      <div className="flex items-center gap-4 min-w-0">
+        {/* Badge */}
+        <div
+          className="relative w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-105"
+          style={{
+            background: `linear-gradient(140deg, ${cert.color}ee 0%, ${cert.color}88 100%)`,
+            boxShadow: `0 4px 14px ${cert.color}40, inset 0 1px 0 rgba(255,255,255,0.25)`,
+          }}
+        >
+          <div className="absolute top-1 left-1.5 w-4 h-2 rounded-full opacity-35"
+            style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.9), transparent)' }} />
+          <span className="text-white text-[11px] font-black font-mono tracking-tight z-10 relative">
+            {cert.shortCode.length > 3 ? cert.shortCode.slice(0, 3) : cert.shortCode}
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          <h3 className="font-display font-bold text-sm text-white leading-tight break-words"
+            style={{ fontSize: '13.5px' }}>
+            {cert.name}
+          </h3>
+          <p className="text-[11px] font-mono mt-0.5" style={{ color: `${cert.color}aa` }}>
+            {cert.provider}
+          </p>
+        </div>
       </div>
 
-      {/* Content */}
-      <div className="flex-1 min-w-0">
-        <h3 className="font-display font-bold text-sm text-white leading-tight"
-          style={{ fontSize: '13.5px' }}>
-          {cert.name}
-        </h3>
-        <p className="text-[11px] font-mono mt-0.5" style={{ color: `${cert.color}aa` }}>
-          {cert.provider}
-        </p>
-      </div>
-
-      {/* Right side */}
-      <div className="flex-shrink-0 flex flex-col items-end gap-1.5">
+      {/* Meta row — stacks below on mobile so it never competes with the name for width */}
+      <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-1.5 sm:flex-col sm:items-end flex-shrink-0 mt-3 sm:mt-0 sm:ml-1">
         <div className="flex items-center gap-1 px-2 py-1 rounded-full"
           style={{
             background: 'rgba(16,185,129,0.07)',
             border: '1px solid rgba(16,185,129,0.22)',
           }}>
           <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-          <span className="text-[9px] font-mono font-semibold text-emerald-400 hidden sm:block">Verified</span>
+          <span className="text-[9px] font-mono font-semibold text-emerald-400">Verified</span>
         </div>
         {cert.credential && (
           <span className="flex items-center gap-1 text-[9px] font-mono text-violet-400 group-hover:text-violet-300 transition-colors">
@@ -146,7 +148,7 @@ function CredentialCard({ cert, delay, inView }: {
           rel="noopener noreferrer"
           onMouseEnter={() => setHov(true)}
           onMouseLeave={() => setHov(false)}
-          className="relative flex items-center gap-4 rounded-2xl p-4 sm:p-5 transition-all duration-300 group"
+          className="relative flex flex-col sm:flex-row sm:items-center gap-0 sm:gap-4 rounded-2xl p-4 sm:p-5 transition-all duration-300 group"
           style={sharedStyle}
         >
           {inner}
@@ -155,7 +157,7 @@ function CredentialCard({ cert, delay, inView }: {
         <div
           onMouseEnter={() => setHov(true)}
           onMouseLeave={() => setHov(false)}
-          className="relative flex items-center gap-4 rounded-2xl p-4 sm:p-5 transition-all duration-300 group"
+          className="relative flex flex-col sm:flex-row sm:items-center gap-0 sm:gap-4 rounded-2xl p-4 sm:p-5 transition-all duration-300 group"
           style={sharedStyle}
         >
           {inner}
