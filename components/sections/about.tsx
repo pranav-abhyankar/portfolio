@@ -140,6 +140,7 @@ export default function About() {
                 {[
                   { dot: 'bg-violet-400', text: 'Semi-Finalist — Providence LEAP Ideathon' },
                   { dot: 'bg-indigo-400', text: 'Hacktoberfest 2025 — SuperContributor' },
+                  { dot: 'bg-cyan-400', text: '2 Published Research Papers in field of AI' },
                 ].map(({ dot, text }) => (
                   <div key={text} className="flex items-start gap-2.5 text-sm text-zinc-400">
                     <span className={`mt-1.5 w-1.5 h-1.5 rounded-full ${dot} flex-shrink-0`} />

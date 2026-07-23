@@ -64,6 +64,16 @@ export function useActiveSection(ids: string[]): string {
       rafId = requestAnimationFrame(() => {
         rafId = 0
         const y = window.scrollY
+
+        // Near the bottom of the page, the last section may be shorter than
+        // the `-140` lookahead can ever satisfy — force it active so nav
+        // doesn't get stuck highlighting the second-to-last section.
+        const atBottom = y + window.innerHeight >= document.documentElement.scrollHeight - 2
+        if (atBottom && offsets.length > 0) {
+          setActive(offsets[0].id)
+          return
+        }
+
         for (const { id, top } of offsets) {
           if (y >= top - 140) {
             setActive(id)
