@@ -201,7 +201,7 @@ export const projects: Project[] = [
       'Zero external mail server dependency — fully self-contained workflow',
     ],
     links: {
-      github: 'https://github.com/pranav-abhyankar',
+      github: 'https://github.com/pranav-abhyankar/email-productivity-agent',
     },
     accentColor: '#f43f5e',
     gradientFrom: '#e11d48',
@@ -236,7 +236,7 @@ export const projects: Project[] = [
       'Supports iterative refinement — users can modify plans, request alternatives, and ask for activity swaps in real time.',
     ],
     links: {
-      github: 'https://github.com/pranav-abhyankar',
+      github: 'https://github.com/pranav-abhyankar/ai-travel-planar',
     },
     accentColor: '#8b5cf6',
     gradientFrom: '#7c3aed',
